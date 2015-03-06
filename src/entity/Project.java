@@ -7,13 +7,14 @@ package entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+
 
 /**
  *
@@ -29,13 +30,16 @@ public class Project implements Serializable {
     private String description;
     private boolean created;
     
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date lastModified;
+    private String lastModified;
     
+    @OneToMany
     private List<Task> tasks = new ArrayList();
 
 
-    public Project(String name, String description, boolean created, Date lastModified) {
+    @ManyToMany
+    private List<ProjectUser> projectUsers = new ArrayList();
+
+    public Project(String name, String description, boolean created, String lastModified) {
         this.name = name;
         this.description = description;
         this.created = created;
@@ -69,11 +73,11 @@ public class Project implements Serializable {
         this.created = created;
     }
 
-    public Date getLastModified() {
+    public String getLastModified() {
         return lastModified;
     }
 
-    public void setLastModified(Date lastModified) {
+    public void setLastModified(String lastModified) {
         this.lastModified = lastModified;
     }
     

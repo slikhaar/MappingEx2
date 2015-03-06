@@ -2,10 +2,12 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class ProjectUser implements Serializable {
@@ -16,6 +18,9 @@ public class ProjectUser implements Serializable {
     private String userName;
     private String email;
     private boolean created;
+    
+    @ManyToMany(mappedBy = "projectUsers")
+    private List<Project> projects;
 
     public ProjectUser(String userName, String email, boolean created) {
         this.userName = userName;
